@@ -1,5 +1,7 @@
 Implement the user authentication with authentication-zero gem also create the namespacing with api/v1 version 1 api
 Implement swagger docs for the API
 Add Employee model, migrations, and 10,000 bulk record seeder
-Add EmployeesController with CRUD and CSV import endpoints
-Add Minitest suite for user authentication models and controllers
+Add Employees with CRUD and CSV import endpoints
+Add Minitest for user authentication models and controllers
+Add Minitest for Employee model and controller
+Add Analytics for salary aggregations and Minitests for analytics controller
