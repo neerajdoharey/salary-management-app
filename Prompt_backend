@@ -1,1 +1,2 @@
 Implement the user authentication with authentication-zero gem also create the namespacing with api/v1 version 1 api
+Implement swagger docs for the API
