@@ -5,3 +5,7 @@ Add Employees with CRUD and CSV import endpoints
 Add Minitest for user authentication models and controllers
 Add Minitest for Employee model and controller
 Add Analytics for salary aggregations and Minitests for analytics controller
+Can we set up an organization structure where users and employees belong to specific organizations, and add role field in user model such as Admin and HR, Specifically, during the organization signup flow, we want to validate the organization details first, create the admin user account and admin user create the ther users
+Fix the swager v1/sign_up api for new user with organisation parameter
+Add orgationzation validation api to check organisation exist or not without any auth token
+Add minitest test cases for organization validation api
