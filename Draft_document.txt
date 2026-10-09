@@ -1,0 +1,61 @@
+ EMPLOYEE SALARY MANAGEMENT SYSTEM - PROJECT MANAGER DRAFT SUMMARY
+
+1. EXECUTIVE SUMMARY & OBJECTIVE
+--------------------------------------------------------------------------------
+- Client: ACME Corp (10,000 employees globally).
+- Goal: Replace slow, manual Excel spreadsheets with a web application.
+- Target User: HR Manager.
+- Primary Objective: Provide real-time salary analytics, data management, 
+  bulk dataset imports, and fast queries across 10,000 global records.
+
+2. KEY BUSINESS QUESTIONS ANSWERED FOR HR
+--------------------------------------------------------------------------------
+- What is ACME's total annual company payroll expenditure?
+- Which departments consume the largest share of the overall salary budget?
+- How does compensation in Engineering/Sales compare across different countries?
+- What are the min, max, and median salary figures within specific departments?
+- How do filters (e.g. "Marketing" in "Germany") impact aggregate metrics?
+
+3. IN-SCOPE MODULES (MVP DELIVERABLES)
+--------------------------------------------------------------------------------
+[MODULE 1] Authentication & Security
+  - Authentication for secure user login.
+  - Role-Based Access Control (RBAC) restricting data to HR Managers/Admins.
+
+[MODULE 2] Bulk CSV Dataset Import
+  - Drag-and-drop CSV file uploader in React UI.
+  - Backend batch validation & fast bulk insertion (Rails insert_all).
+
+[MODULE 3] Executive Analytics & BI Dashboard
+  - High-level metric summary cards (Total Payroll, Avg Salary, Median Salary).
+  - Visual charts (Salary by Country Bar Chart & Department Share Pie Chart).
+
+[MODULE 4] Employee Directory & Data Grid
+  - Server-side paginated data table handling 10,000 records without lag.
+  - Multi-field filters (Country, Department, Salary Min/Max) & live Search.
+
+[MODULE 5] Employee Detail & Edit Modal
+  - View full employee compensation profiles.
+  - Edit salary and department with instant backend validation & UI sync.
+
+[MODULE 6] High-Speed Data Seeder
+  - Rails seed script populating 10,000 benchmark records in < 2 seconds.
+
+[MODULE 7] Swagger / OpenAPI API Documentation
+  - Interactive Swagger UI (/api-docs) generated via Rails rswag/OpenAPI spec.
+  - Exposes REST API schemas, query parameters, auth tokens, and sample responses.
+
+4. DELIBERATELY EXCLUDED SCOPE (OUT OF SCOPE FOR V1)
+--------------------------------------------------------------------------------
+- Taxation & Net Pay Engine: Out of scope (Gross salary focused).
+- Real-time Multi-Currency FX Engine: Out of scope (All data in USD).
+- Multi-step Manager Approval Workflows: Out of scope (Direct updates in MVP).
+
+5. TECHNICAL ARCHITECTURE & PERFORMANCE SLAS
+--------------------------------------------------------------------------------
+- Backend: Ruby on Rails 7 API mode.
+- Frontend: React SPA (Vite + Tailwind CSS + Recharts).
+- API Docs: Swagger / OpenAPI UI at /api-docs.
+- Database: Relational DB (PostgreSQL / SQLite) with B-Tree indexes on country,
+  department, salary, and name.
+- Performance SLA: Sub-100ms API response time over 10,000 DB records.
