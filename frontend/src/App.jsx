@@ -7,6 +7,8 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import EmployeesPage from './pages/EmployeesPage';
+import NewEmployeePage from './pages/NewEmployeePage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
@@ -31,15 +33,8 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboardPage />} />
-              <Route
-                path="employees"
-                element={
-                  <PlaceholderPage
-                    title="Employee Directory"
-                    description="Browse, filter, and inspect employee compensation profiles."
-                  />
-                }
-              />
+              <Route path="employees" element={<EmployeesPage />} />
+              <Route path="employees/new" element={<NewEmployeePage />} />
               <Route
                 path="import"
                 element={

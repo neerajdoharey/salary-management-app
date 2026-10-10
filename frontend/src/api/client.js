@@ -90,4 +90,21 @@ export const employeesApi = {
     const response = await apiClient.get('/api/v1/employees', { params });
     return response.data;
   },
+  get: async (id) => {
+    const response = await apiClient.get(`/api/v1/employees/${id}`);
+    return response.data;
+  },
+  create: async (data) => {
+    const response = await apiClient.post('/api/v1/employees', data);
+    return response.data;
+  },
+  update: async (id, data) => {
+    const response = await apiClient.put(`/api/v1/employees/${id}`, data);
+    return response.data;
+  },
+  delete: async (id) => {
+    const response = await apiClient.delete(`/api/v1/employees/${id}`);
+    return response.data;
+  },
 };
+

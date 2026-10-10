@@ -93,6 +93,13 @@ export default function AdminLayout() {
   // Home > Section
   // Heading
   const getBreadcrumbInfo = (pathname) => {
+    if (pathname.includes('/employees/new')) {
+      return {
+        parent: { label: 'Employees', path: '/admin/employees' },
+        section: 'Add New Employee',
+        heading: 'Add New Employee',
+      };
+    }
     if (pathname.includes('/employees')) {
       return { section: 'Employees', heading: 'Employee Directory' };
     }
@@ -108,7 +115,7 @@ export default function AdminLayout() {
     return { section: 'Dashboard', heading: 'Executive Compensation Dashboard' };
   };
 
-  const { section, heading } = getBreadcrumbInfo(location.pathname);
+  const { parent, section, heading } = getBreadcrumbInfo(location.pathname);
 
   return (
     <div className="font-outfit min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
@@ -433,6 +440,14 @@ export default function AdminLayout() {
               <Link to="/admin" className="hover:text-gray-700 dark:hover:text-gray-300">
                 Home
               </Link>
+              {parent && (
+                <>
+                  <ChevronRight className="h-4 w-4 text-gray-400" />
+                  <Link to={parent.path} className="hover:text-gray-700 dark:hover:text-gray-300">
+                    {parent.label}
+                  </Link>
+                </>
+              )}
               <ChevronRight className="h-4 w-4 text-gray-400" />
               <span className="text-gray-900 dark:text-white capitalize font-medium">
                 {section}

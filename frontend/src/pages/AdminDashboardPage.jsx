@@ -193,7 +193,7 @@ export default function AdminDashboardPage() {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="text-gray-500 dark:text-gray-400 uppercase border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+              <thead className="text-gray-500 dark:text-gray-400 uppercase border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th className="py-2.5 px-3 font-semibold">Department</th>
                   <th className="py-2.5 px-3 text-right font-semibold">Count</th>
@@ -245,7 +245,7 @@ export default function AdminDashboardPage() {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="text-gray-500 dark:text-gray-400 uppercase border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+              <thead className="text-gray-500 dark:text-gray-400 uppercase border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                 <tr>
                   <th className="py-2.5 px-3 font-semibold">Country</th>
                   <th className="py-2.5 px-3 text-right font-semibold">Employees</th>
