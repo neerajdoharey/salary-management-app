@@ -1,2 +1,3 @@
 create a react app and the app name is frontend 
 create a home page , login page with email and password with sign up link on the page , use tailwind css use 2 layout login layut and different layout  admin section after login 
+On the signup page, the first form asks for the organization name. When the user clicks 'Next', the system checks if the organization already exists: if it does, it shows a validation error; if it doesn't, it proceeds to the next step to enter the email address and password to create the account.
