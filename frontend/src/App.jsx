@@ -9,6 +9,7 @@ import SignUpPage from './pages/SignUpPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import EmployeesPage from './pages/EmployeesPage';
 import NewEmployeePage from './pages/NewEmployeePage';
+import ImportEmployeesPage from './pages/ImportEmployeesPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
@@ -35,15 +36,7 @@ export default function App() {
               <Route index element={<AdminDashboardPage />} />
               <Route path="employees" element={<EmployeesPage />} />
               <Route path="employees/new" element={<NewEmployeePage />} />
-              <Route
-                path="import"
-                element={
-                  <PlaceholderPage
-                    title="Bulk CSV Import"
-                    description="Stream high-volume employee CSV datasets directly to Rails 8 import endpoint."
-                  />
-                }
-              />
+              <Route path="import" element={<ImportEmployeesPage />} />
               <Route
                 path="users"
                 element={

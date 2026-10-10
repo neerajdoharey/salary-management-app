@@ -1,0 +1,11 @@
+first_name,last_name,email,job_title,department,country,salary
+Alexander,Wright,alexander.wright.sample@acme.com,Senior Software Engineer,Engineering,United States,135000
+Sophia,Chen,sophia.chen.sample@acme.com,Product Manager,Product,Canada,118000
+Liam,Johnson,liam.johnson.sample@acme.com,Account Executive,Sales,United Kingdom,92000
+Emma,Davis,emma.davis.sample@acme.com,Marketing Lead,Marketing,Australia,88000
+Lucas,Mueller,lucas.mueller.sample@acme.com,Financial Analyst,Finance,Germany,95000
+Olivia,Martin,olivia.martin.sample@acme.com,HR Specialist,Human Resources,France,78000
+Hiroshi,Tanaka,hiroshi.tanaka.sample@acme.com,DevOps Engineer,Engineering,Japan,110000
+Aarav,Patel,aarav.patel.sample@acme.com,Full Stack Developer,Engineering,India,65000
+Isabella,Silva,isabella.silva.sample@acme.com,Operations Manager,Operations,Brazil,82000
+Wei,Zhang,wei.zhang.sample@acme.com,Compliance Specialist,Legal,Singapore,105000

@@ -106,5 +106,16 @@ export const employeesApi = {
     const response = await apiClient.delete(`/api/v1/employees/${id}`);
     return response.data;
   },
+  import: async (file, onUploadProgress) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await apiClient.post('/api/v1/employees/import', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress,
+    });
+    return response.data;
+  },
 };
 

@@ -3,3 +3,4 @@ create a home page , login page with email and password with sign up link on the
 On the signup page, the first form asks for the organization name. When the user clicks 'Next', the system checks if the organization already exists: if it does, it shows a validation error; if it doesn't, it proceeds to the next step to enter the email address and password to create the account.
 Employee Directory table when click on dark mode the table header and pagination is in dark mode
 On the /admin/employees page, add an 'Add New Employee' link that redirects to the employee form page, and implement the feature to create a new employee using the employee POST API method.
+Implement bulk import on the /admin/import page using the Bulk Import Employee API. The page should support dragging and dropping a CSV file or clicking the upload area to select one, and include a link to download a sample CSV file.
