@@ -119,3 +119,14 @@ export const employeesApi = {
   },
 };
 
+export const usersApi = {
+  list: async () => {
+    const response = await apiClient.get('/api/v1/users');
+    return response.data;
+  },
+  create: async (data) => {
+    const response = await apiClient.post('/api/v1/users', data);
+    return response.data;
+  },
+};
+

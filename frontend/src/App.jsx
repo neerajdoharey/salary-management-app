@@ -10,6 +10,8 @@ import AdminDashboardPage from './pages/AdminDashboardPage';
 import EmployeesPage from './pages/EmployeesPage';
 import NewEmployeePage from './pages/NewEmployeePage';
 import ImportEmployeesPage from './pages/ImportEmployeesPage';
+import UsersPage from './pages/UsersPage';
+import AnalyticsPage from './pages/AnalyticsPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
@@ -37,16 +39,8 @@ export default function App() {
               <Route path="employees" element={<EmployeesPage />} />
               <Route path="employees/new" element={<NewEmployeePage />} />
               <Route path="import" element={<ImportEmployeesPage />} />
-              <Route
-                path="users"
-                element={
-                  <PlaceholderPage
-                    title="Organization Team & RBAC"
-                    description="Manage organization admins, HR managers, and employee access permissions."
-                  />
-                }
-              />
-              <Route path="analytics" element={<AdminDashboardPage />} />
+              <Route path="users" element={<UsersPage />} />
+              <Route path="analytics" element={<AnalyticsPage />} />
             </Route>
           </Route>
 
