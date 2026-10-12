@@ -5,4 +5,8 @@ Employee Directory table when click on dark mode the table header and pagination
 On the /admin/employees page, add an 'Add New Employee' link that redirects to the employee form page, and implement the feature to create a new employee using the employee POST API method.
 Implement bulk import on the /admin/import page using the Bulk Import Employee API. The page should support dragging and dropping a CSV file or clicking the upload area to select one, and include a link to download a sample CSV file.
 Implement the feature to create a new user for an organization on the /admin/users page using the user POST API method.
-Implement the charts for this /admin/analytics page  check the frontend plan for analysis 
+Implement the charts for this /admin/analytics page  check the frontend plan for analysis
+
+Depending on their role, users can access URLs according to the following permissions: 
+    Admin: Can access all modules. 
+    HR Manager: Can access all modules except user CRUD operations.

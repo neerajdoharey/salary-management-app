@@ -80,12 +80,15 @@ export default function AdminLayout() {
     navigate('/login');
   };
 
-  // Nav menu items matching empty_new.html structure
+  // Nav menu items matching RBAC permissions:
+  // Admin can access all modules; HR Manager can access all modules except user CRUD operations.
   const navItems = [
     { label: 'Dashboard', path: '/admin', icon: LayoutDashboard, exact: true },
     { label: 'Employee Directory', path: '/admin/employees', icon: Users },
     { label: 'Bulk CSV Import', path: '/admin/import', icon: UploadCloud },
-    { label: 'Team & RBAC Users', path: '/admin/users', icon: UserCheck },
+    ...(user?.role === 'admin'
+      ? [{ label: 'Team & RBAC Users', path: '/admin/users', icon: UserCheck }]
+      : []),
     { label: 'Salary Analytics BI', path: '/admin/analytics', icon: BarChart3 },
   ];
 
@@ -399,14 +402,16 @@ export default function AdminLayout() {
                         <User className="h-4 w-4 mr-3 text-gray-400" />
                         <span>User Profile</span>
                       </Link>
-                      <Link
-                        to="/admin/users"
-                        onClick={() => setIsProfileOpen(false)}
-                        className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        <Settings className="h-4 w-4 mr-3 text-gray-400" />
-                        <span>Account Settings</span>
-                      </Link>
+                      {user?.role === 'admin' && (
+                        <Link
+                          to="/admin/users"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <Settings className="h-4 w-4 mr-3 text-gray-400" />
+                          <span>Team & RBAC Users</span>
+                        </Link>
+                      )}
                       <a
                         href="http://localhost:3000/api-docs"
                         target="_blank"

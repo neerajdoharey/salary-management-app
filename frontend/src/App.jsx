@@ -15,6 +15,7 @@ import AnalyticsPage from './pages/AnalyticsPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
+import AdminOnlyRoute from './components/AdminOnlyRoute';
 
 export default function App() {
   return (
@@ -39,7 +40,14 @@ export default function App() {
               <Route path="employees" element={<EmployeesPage />} />
               <Route path="employees/new" element={<NewEmployeePage />} />
               <Route path="import" element={<ImportEmployeesPage />} />
-              <Route path="users" element={<UsersPage />} />
+              <Route
+                path="users"
+                element={
+                  <AdminOnlyRoute>
+                    <UsersPage />
+                  </AdminOnlyRoute>
+                }
+              />
               <Route path="analytics" element={<AnalyticsPage />} />
             </Route>
           </Route>

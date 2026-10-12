@@ -124,9 +124,22 @@ export const usersApi = {
     const response = await apiClient.get('/api/v1/users');
     return response.data;
   },
+  get: async (id) => {
+    const response = await apiClient.get(`/api/v1/users/${id}`);
+    return response.data;
+  },
   create: async (data) => {
     const response = await apiClient.post('/api/v1/users', data);
     return response.data;
   },
+  update: async (id, data) => {
+    const response = await apiClient.put(`/api/v1/users/${id}`, data);
+    return response.data;
+  },
+  delete: async (id) => {
+    const response = await apiClient.delete(`/api/v1/users/${id}`);
+    return response.data;
+  },
 };
+
 

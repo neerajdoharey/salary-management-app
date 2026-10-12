@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { usersApi } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -23,7 +24,8 @@ import {
 } from 'lucide-react';
 
 export default function UsersPage() {
-  const { user: currentUser } = useAuth();
+  const navigate = useNavigate();
+  const { user: currentUser, isLoading: isLoadingAuth } = useAuth();
 
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,6 +35,13 @@ export default function UsersPage() {
   // Search & Role Filter
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
+
+  // Defense-in-depth: Redirect non-admin users away from user CRUD operations
+  useEffect(() => {
+    if (!isLoadingAuth && currentUser && currentUser.role !== 'admin') {
+      navigate('/admin', { replace: true });
+    }
+  }, [currentUser, isLoadingAuth, navigate]);
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,8 +76,10 @@ export default function UsersPage() {
   }, []);
 
   useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+    if (currentUser?.role === 'admin') {
+      fetchUsers();
+    }
+  }, [fetchUsers, currentUser]);
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -221,6 +232,10 @@ export default function UsersPage() {
     const matchesRole = !roleFilter || u.role === roleFilter;
     return matchesSearch && matchesRole;
   });
+
+  if (currentUser && currentUser.role !== 'admin') {
+    return null;
+  }
 
   return (
     <div className="space-y-6 mx-auto">

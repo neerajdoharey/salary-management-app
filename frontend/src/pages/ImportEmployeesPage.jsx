@@ -14,6 +14,8 @@ import {
   FileText,
   ArrowRight,
   Info,
+  Mail,
+  ExternalLink,
 } from 'lucide-react';
 
 export default function ImportEmployeesPage() {
@@ -229,68 +231,27 @@ export default function ImportEmployeesPage() {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {importResult.message || 'Import Complete'}
+                {importResult.message || 'Bulk Import Enqueued Successfully'}
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Your dataset was processed by the Rails 8 batch processing engine.
+                Your dataset is being processed in the background by the Solid Queue engine.
               </p>
             </div>
           </div>
 
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
-              <span className="text-xs font-medium text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
-                Successfully Imported
-              </span>
-              <div className="text-2xl font-bold text-emerald-800 dark:text-emerald-200 mt-1">
-                {importResult.imported_count?.toLocaleString() || 0}
-              </div>
-              <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">
-                Records added to employee directory
-              </p>
+          {/* Background Job Information Callout */}
+          <div className="p-4 rounded-lg bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 space-y-2">
+            <div className="flex items-center gap-2 text-indigo-900 dark:text-indigo-200 text-sm font-semibold">
+              <Mail className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+              <span>Log File & Row Breakdown Delivered via Email</span>
             </div>
-
-            <div
-              className={`p-4 rounded-lg border ${
-                importResult.error_count > 0
-                  ? 'bg-amber-50/70 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200'
-                  : 'bg-gray-50 dark:bg-gray-700/40 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              <span className="text-xs font-medium uppercase tracking-wider">
-                Rows with Errors
-              </span>
-              <div className="text-2xl font-bold mt-1">
-                {importResult.error_count?.toLocaleString() || 0}
-              </div>
-              <p className="text-xs opacity-80 mt-0.5">
-                {importResult.error_count > 0
-                  ? 'Rows skipped due to missing fields'
-                  : 'All rows processed smoothly'}
-              </p>
-            </div>
+            <p className="text-xs text-indigo-700 dark:text-indigo-300 leading-relaxed">
+              Each row is individually processed and validated in the background. Once the import completes, an <strong>import.log</strong> file detailing the success status or error message for each row will be automatically emailed to your account.
+            </p>
           </div>
-
-          {/* Row Errors Detail List if any */}
-          {importResult.errors && importResult.errors.length > 0 && (
-            <div className="mt-4 p-4 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
-              <div className="flex items-center gap-2 mb-2 text-amber-800 dark:text-amber-200 font-semibold text-sm">
-                <AlertTriangle className="h-4 w-4" />
-                <span>Error Log ({importResult.errors.length} issues)</span>
-              </div>
-              <div className="max-h-48 overflow-y-auto space-y-1 text-xs text-amber-700 dark:text-amber-300 pr-2 font-mono">
-                {importResult.errors.map((err, idx) => (
-                  <div key={idx} className="py-0.5">
-                    • {err}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-3">
+          <div className="flex flex-wrap items-center gap-3 pt-2">
             <Link
               to="/admin/employees"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-colors"
@@ -331,11 +292,10 @@ export default function ImportEmployeesPage() {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className={`border-2 border-dashed rounded-xl p-8 sm:p-14 text-center cursor-pointer transition-all duration-200 ${
-                isDragging
-                  ? 'border-indigo-600 bg-indigo-50/60 dark:bg-indigo-950/40 dark:border-indigo-400 scale-[1.01]'
-                  : 'border-gray-300 dark:border-gray-600 hover:border-indigo-500 dark:hover:border-indigo-400 bg-gray-50/50 dark:bg-gray-700/20'
-              }`}
+              className={`border-2 border-dashed rounded-xl p-8 sm:p-14 text-center cursor-pointer transition-all duration-200 ${isDragging
+                ? 'border-indigo-600 bg-indigo-50/60 dark:bg-indigo-950/40 dark:border-indigo-400 scale-[1.01]'
+                : 'border-gray-300 dark:border-gray-600 hover:border-indigo-500 dark:hover:border-indigo-400 bg-gray-50/50 dark:bg-gray-700/20'
+                }`}
             >
               <div className="mx-auto w-16 h-16 mb-4 rounded-full bg-indigo-50 dark:bg-indigo-950/70 flex items-center justify-center text-indigo-600 dark:text-indigo-400 transition-transform hover:scale-105">
                 <UploadCloud className="h-8 w-8" />
