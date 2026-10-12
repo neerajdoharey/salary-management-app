@@ -17,6 +17,7 @@ import {
   DollarSign,
   Mail,
   User,
+  Users,
   Briefcase,
   Globe,
   Plus,
