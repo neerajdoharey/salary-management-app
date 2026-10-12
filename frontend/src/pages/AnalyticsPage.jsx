@@ -197,7 +197,7 @@ export default function AnalyticsPage() {
   const tooltipTextColor = isDarkMode ? '#FFFFFF' : '#111827';
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-6 mx-auto">
       {/* Top Banner Toolbar */}
       <div className="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors duration-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -486,9 +486,8 @@ export default function AnalyticsPage() {
                 key={d.name}
                 onMouseEnter={() => setActiveDepartmentIndex(i)}
                 onMouseLeave={() => setActiveDepartmentIndex(null)}
-                className={`flex items-center justify-between p-1 rounded-md transition-colors cursor-pointer ${
-                  activeDepartmentIndex === i ? 'bg-gray-100 dark:bg-gray-700/60' : ''
-                }`}
+                className={`flex items-center justify-between p-1 rounded-md transition-colors cursor-pointer ${activeDepartmentIndex === i ? 'bg-gray-100 dark:bg-gray-700/60' : ''
+                  }`}
               >
                 <div className="flex items-center gap-1.5 truncate">
                   <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: d.color }} />
@@ -522,21 +521,19 @@ export default function AnalyticsPage() {
                 <div className="inline-flex rounded-lg p-0.5 bg-gray-100 dark:bg-gray-700 text-xs">
                   <button
                     onClick={() => setSecondaryMetric('count')}
-                    className={`px-2.5 py-1 rounded-md font-semibold transition ${
-                      secondaryMetric === 'count'
-                        ? 'bg-white dark:bg-gray-800 text-emerald-600 dark:text-emerald-400 shadow-2xs'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                    }`}
+                    className={`px-2.5 py-1 rounded-md font-semibold transition ${secondaryMetric === 'count'
+                      ? 'bg-white dark:bg-gray-800 text-emerald-600 dark:text-emerald-400 shadow-2xs'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                      }`}
                   >
                     Headcount
                   </button>
                   <button
                     onClick={() => setSecondaryMetric('avg_salary')}
-                    className={`px-2.5 py-1 rounded-md font-semibold transition ${
-                      secondaryMetric === 'avg_salary'
-                        ? 'bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 shadow-2xs'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                    }`}
+                    className={`px-2.5 py-1 rounded-md font-semibold transition ${secondaryMetric === 'avg_salary'
+                      ? 'bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 shadow-2xs'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                      }`}
                   >
                     Avg Salary
                   </button>
@@ -555,16 +552,14 @@ export default function AnalyticsPage() {
                   <span>Left: Payroll ($M)</span>
                 </span>
                 <span
-                  className={`inline-flex items-center gap-1.5 ${
-                    secondaryMetric === 'count'
-                      ? 'text-emerald-600 dark:text-emerald-400'
-                      : 'text-purple-600 dark:text-purple-400'
-                  }`}
+                  className={`inline-flex items-center gap-1.5 ${secondaryMetric === 'count'
+                    ? 'text-emerald-600 dark:text-emerald-400'
+                    : 'text-purple-600 dark:text-purple-400'
+                    }`}
                 >
                   <span
-                    className={`w-2.5 h-2.5 rounded-full ${
-                      secondaryMetric === 'count' ? 'bg-emerald-500' : 'bg-purple-500'
-                    }`}
+                    className={`w-2.5 h-2.5 rounded-full ${secondaryMetric === 'count' ? 'bg-emerald-500' : 'bg-purple-500'
+                      }`}
                   />
                   <span>Right: {secondaryMetric === 'count' ? 'Headcount' : 'Avg Salary ($)'}</span>
                 </span>

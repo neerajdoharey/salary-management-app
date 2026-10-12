@@ -223,7 +223,7 @@ export default function UsersPage() {
   });
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto">
+    <div className="space-y-6 mx-auto">
       {/* Table Container Card matching user.html and table_list.html */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors">
         {/* Table Header Controls */}
@@ -454,10 +454,10 @@ export default function UsersPage() {
                           <span>
                             {u.created_at
                               ? new Date(u.created_at).toLocaleDateString(undefined, {
-                                  year: 'numeric',
-                                  month: 'short',
-                                  day: 'numeric',
-                                })
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                              })
                               : 'Seed Record'}
                           </span>
                         </div>
