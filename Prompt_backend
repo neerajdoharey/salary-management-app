@@ -12,3 +12,4 @@ Add minitest test cases for organization validation api
 Implement a Solid Queue background job for a bulk import API. When the background process starts, create an import.log file inside a user-specific subdirectory within the Rails tmp/ directory (e.g., tmp/user_id/import.log). For each row, log the row ID along with a boolean flag: true if the record is successfully added, or false if it rolls back or contains incomplete information. After the import completes, email this log file to the logged-in user and remove the file.
 install letter_opener and mission_control-jobs gem
 Add the error massage after flag for that row in import.log file in bulk import backgroud process 
+Add authentication in mission control UI for /jobs page
