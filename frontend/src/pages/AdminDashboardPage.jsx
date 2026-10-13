@@ -8,7 +8,6 @@ import {
   Building2,
   ShieldCheck,
   RefreshCw,
-  ExternalLink,
   Layers,
   Sparkles,
 } from 'lucide-react';
@@ -49,18 +48,9 @@ export default function AdminDashboardPage() {
       <div className="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 shadow-xs transition-colors duration-200">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider">
-                Enterprise Workspace
-              </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">• Rails 8 PostgreSQL Isolated</span>
-            </div>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
               Welcome back, <span className="text-indigo-600 dark:text-indigo-400">{user?.email}</span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-sm mt-1 max-w-2xl leading-relaxed">
-              Organization: <strong className="text-gray-900 dark:text-white">{user?.organization?.name || 'ACME Corp'}</strong>. Full multi-tenant compensation controls, batch CSV streaming, and executive salary distributions.
-            </p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -72,15 +62,6 @@ export default function AdminDashboardPage() {
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
               <span>Refresh Metrics</span>
             </button>
-            <a
-              href="http://localhost:3000/api-docs"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition active:scale-95"
-            >
-              <span>API Docs</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
           </div>
         </div>
       </div>

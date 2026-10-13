@@ -7,14 +7,11 @@ import {
   UploadCloud,
   UserCheck,
   BarChart3,
-  FileCode2,
   LogOut,
   Menu,
   X,
   ChevronRight,
   ChevronDown,
-  ExternalLink,
-  Search,
   Bell,
   Sun,
   Moon,
@@ -133,9 +130,8 @@ export default function AdminLayout() {
       {/* Sidebar matching empty_new.html */}
       <aside
         id="sidebar"
-        className={`fixed left-0 top-0 z-40 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out flex flex-col justify-between ${
-          isMobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0'
-        } ${isSidebarCollapsed ? 'lg:w-20' : 'lg:w-64'}`}
+        className={`fixed left-0 top-0 z-40 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out flex flex-col justify-between ${isMobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0'
+          } ${isSidebarCollapsed ? 'lg:w-20' : 'lg:w-64'}`}
       >
         <div>
           {/* Logo Bar */}
@@ -175,64 +171,28 @@ export default function AdminLayout() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 title={isSidebarCollapsed ? item.label : undefined}
                 className={({ isActive }) =>
-                  `group flex items-center rounded-lg py-2.5 text-sm font-medium transition-colors duration-200 ${
-                    isSidebarCollapsed ? 'justify-center px-0' : 'px-3'
-                  } ${
-                    isActive
-                      ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-semibold shadow-xs'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                  `group flex items-center rounded-lg py-2.5 text-sm font-medium transition-colors duration-200 ${isSidebarCollapsed ? 'justify-center px-0' : 'px-3'
+                  } ${isActive
+                    ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-semibold shadow-xs'
+                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                   }`
                 }
               >
                 <item.icon
-                  className={`h-5 w-5 flex-shrink-0 transition-colors ${
-                    isSidebarCollapsed ? 'mx-auto' : 'mr-3'
-                  }`}
+                  className={`h-5 w-5 flex-shrink-0 transition-colors ${isSidebarCollapsed ? 'mx-auto' : 'mr-3'
+                    }`}
                 />
                 {!isSidebarCollapsed && (
                   <span className="truncate transition-opacity duration-300">{item.label}</span>
                 )}
               </NavLink>
             ))}
-
-            {/* Support / Documentation Section */}
-            <div className={`pt-6 pb-2 ${isSidebarCollapsed ? 'text-center' : 'px-1'}`}>
-              <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">
-                {isSidebarCollapsed ? '•••' : 'DEVELOPER'}
-              </span>
-            </div>
-
-            <a
-              href="http://localhost:3000/api-docs"
-              target="_blank"
-              rel="noreferrer"
-              title={isSidebarCollapsed ? 'API Documentation' : undefined}
-              className={`group flex items-center rounded-lg py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 ${
-                isSidebarCollapsed ? 'justify-center px-0' : 'px-3'
-              }`}
-            >
-              <FileCode2
-                className={`h-5 w-5 flex-shrink-0 ${isSidebarCollapsed ? 'mx-auto' : 'mr-3'}`}
-              />
-              {!isSidebarCollapsed && (
-                <>
-                  <span className="flex-1 truncate">Swagger API Docs</span>
-                  <ExternalLink className="h-3.5 w-3.5 opacity-50 group-hover:opacity-100" />
-                </>
-              )}
-            </a>
           </nav>
         </div>
 
         {/* Sidebar Footer: Active Tenant Badge */}
         {!isSidebarCollapsed && (
           <div className="p-4 m-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between text-xs mb-1">
-              <span className="text-gray-500 dark:text-gray-400 font-medium">Tenant</span>
-              <span className="px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-[10px] font-bold">
-                ACTIVE
-              </span>
-            </div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">
               {user?.organization?.name || 'ACME Corp'}
             </div>
@@ -246,9 +206,8 @@ export default function AdminLayout() {
       {/* Main Content Area */}
       <div
         id="main-content"
-        className={`transition-all duration-300 ease-in-out ${
-          isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'
-        }`}
+        className={`transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'
+          }`}
       >
         {/* Top Navigation matching empty_new.html */}
         <header className="sticky top-0 z-30 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-xs transition-colors duration-200">
@@ -270,23 +229,6 @@ export default function AdminLayout() {
               >
                 <Menu className="h-5 w-5" />
               </button>
-
-              {/* Search Input with ⌘K Badge */}
-              <div className="relative hidden md:block">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                  <Search className="h-4 w-4" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search or type command..."
-                  className="w-72 lg:w-80 rounded-lg border border-gray-300 bg-gray-50 py-2 pl-10 pr-10 text-sm focus:border-indigo-600 focus:outline-none focus:ring-1 focus:ring-indigo-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 transition-colors"
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <kbd className="rounded bg-gray-200 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-600 dark:text-gray-400 font-sans">
-                    ⌘K
-                  </kbd>
-                </div>
-              </div>
             </div>
 
             {/* Right Side: Theme Toggle, Notifications, Profile Dropdown */}
