@@ -1,0 +1,19 @@
+one:
+  organization: acme
+  first_name: "Leo"
+  last_name: "Wiza"
+  email: "leo.wiza.1@acme.com"
+  job_title: "Software Engineer"
+  department: "Engineering"
+  country: "France"
+  salary: 95000.00
+
+two:
+  organization: acme
+  first_name: "Sarah"
+  last_name: "Connor"
+  email: "sarah.connor.2@acme.com"
+  job_title: "Operations Manager"
+  department: "Operations"
+  country: "United States"
+  salary: 125000.00

@@ -1,0 +1,13 @@
+one:
+  email: hr@acme.com
+  password_digest: <%= BCrypt::Password.create("Password@12345", cost: 4) %>
+  verified: true
+  role: admin
+  organization: acme
+
+two:
+  email: john.doe@acme.com
+  password_digest: <%= BCrypt::Password.create("Password@12345", cost: 4) %>
+  verified: true
+  role: hr_manager
+  organization: acme

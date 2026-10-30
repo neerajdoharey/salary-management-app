@@ -1,0 +1,7 @@
+acme:
+  name: ACME Corp
+  slug: acme-corp
+
+globex:
+  name: Globex Corp
+  slug: globex-corp

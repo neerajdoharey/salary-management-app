@@ -1,0 +1,12 @@
+Hello <%= @user.email %>,
+
+Your bulk employee import process has completed.
+Attached to this email is the generated `import.log` file with the row-by-row status breakdown.
+
+Summary Log Content:
+----------------------------------------
+<%= @log_content %>
+----------------------------------------
+
+Thank you,
+Employee Salary Management System

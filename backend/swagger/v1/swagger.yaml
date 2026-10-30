@@ -1,0 +1,769 @@
+openapi: 3.0.1
+info:
+  title: Employee Salary Management
+  #description: API documentation for Employee Salary Management backend application.
+  version: v1
+  #contact:
+    #name: HR Engineering Team
+    #email: hr-tech@acme.com
+servers:
+  - url: http://localhost:3000
+    description: Development server
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: SignedToken
+      description: Enter your signed session token generated during sign in/up.
+  schemas:
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        first_name:
+          type: string
+          example: "Leo"
+        last_name:
+          type: string
+          example: "Wiza"
+        email:
+          type: string
+          example: "leo.wiza.1@acme.com"
+        job_title:
+          type: string
+          example: "Software Engineer"
+        department:
+          type: string
+          example: "Engineering"
+        country:
+          type: string
+          example: "United States"
+        salary:
+          type: number
+          format: float
+          example: 95000.00
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+paths:
+  /api/v1/sign_in:
+    post:
+      tags:
+        - Authentication
+      summary: User Sign In
+      description: Authenticate with email and password to receive a session token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "hr@acme.com"
+                password:
+                  type: string
+                  format: password
+                  example: "Password@12345"
+      responses:
+        '201':
+          description: Successfully authenticated
+          headers:
+            X-Session-Token:
+              schema:
+                type: string
+              description: Signed session token for HTTP Bearer authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoic2Vzc2lvbiJ9fQ..."
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      email:
+                        type: string
+                        example: "hr@acme.com"
+                      role:
+                        type: string
+                        example: "admin"
+                      organization:
+                        type: object
+                        nullable: true
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "ACME Corp"
+                          slug:
+                            type: string
+                            example: "acme-corp"
+        '401':
+          description: Invalid email or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid email or password"
+
+  /api/v1/sign_out:
+    delete:
+      tags:
+        - Authentication
+      summary: User Sign Out
+      description: Terminate the current session token.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successfully signed out
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Signed out successfully"
+        '401':
+          description: Unauthorized / Missing or invalid token
+
+  /api/v1/sign_up:
+    post:
+      tags:
+        - Authentication
+      summary: User & Organization Registration
+      description: Register a new user account and optionally create/onboard an organization. When organization_name is provided, the registrant becomes the Org Admin (role admin).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - password_confirmation
+              properties:
+                organization_name:
+                  type: string
+                  description: Optional name of new or existing organization to bind/create
+                  example: "Stark Industries"
+                email:
+                  type: string
+                  format: email
+                  example: "tony@stark.com"
+                password:
+                  type: string
+                  format: password
+                  example: "Password@12345"
+                password_confirmation:
+                  type: string
+                  format: password
+                  example: "Password@12345"
+                role:
+                  type: string
+                  enum: [admin, hr_manager, employee]
+                  example: "admin"
+      responses:
+        '201':
+          description: Successfully registered
+          headers:
+            X-Session-Token:
+              schema:
+                type: string
+              description: Signed session token for HTTP Bearer authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoic2Vzc2lvbiJ9fQ..."
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 3
+                      email:
+                        type: string
+                        example: "tony@stark.com"
+                      role:
+                        type: string
+                        example: "admin"
+                      organization:
+                        type: object
+                        nullable: true
+                        properties:
+                          id:
+                            type: integer
+                            example: 2
+                          name:
+                            type: string
+                            example: "Stark Industries"
+                          slug:
+                            type: string
+                            example: "stark-industries"
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+
+  /api/v1/me:
+    get:
+      tags:
+        - User Profile
+      summary: Current User Profile
+      description: Fetch details of the currently authenticated user including role and organization.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Current user profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      email:
+                        type: string
+                        example: "hr@acme.com"
+                      role:
+                        type: string
+                        example: "admin"
+                      organization:
+                        type: object
+                        nullable: true
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "ACME Corp"
+                          slug:
+                            type: string
+                            example: "acme-corp"
+        '401':
+          description: Unauthorized / Missing or invalid token
+
+
+  /api/v1/employees:
+    get:
+      tags:
+        - Employees
+      summary: List Employees
+      description: Retrieve paginated employee records with filtering, sorting, and search.
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+            default: 25
+        - in: query
+          name: country
+          schema:
+            type: string
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: min_salary
+          schema:
+            type: number
+        - in: query
+          name: max_salary
+          schema:
+            type: number
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort_by
+          schema:
+            type: string
+            enum: [first_name, last_name, salary, department, country]
+        - in: query
+          name: sort_order
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+      responses:
+        '200':
+          description: Paginated list of employees
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employees:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Employee'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      next_page:
+                        type: integer
+                        nullable: true
+                      prev_page:
+                        type: integer
+                        nullable: true
+                      total_pages:
+                        type: integer
+                      total_count:
+                        type: integer
+
+    post:
+      tags:
+        - Employees
+      summary: Create Employee
+      description: Add a new employee record.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - first_name
+                - last_name
+                - email
+                - job_title
+                - department
+                - country
+                - salary
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                job_title:
+                  type: string
+                department:
+                  type: string
+                country:
+                  type: string
+                salary:
+                  type: number
+      responses:
+        '201':
+          description: Employee created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '422':
+          description: Validation errors
+
+  /api/v1/employees/{id}:
+    get:
+      tags:
+        - Employees
+      summary: Get Employee Details
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+
+    put:
+      tags:
+        - Employees
+      summary: Update Employee
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                job_title:
+                  type: string
+                department:
+                  type: string
+                country:
+                  type: string
+                salary:
+                  type: number
+      responses:
+        '200':
+          description: Employee updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '422':
+          description: Validation errors
+
+    delete:
+      tags:
+        - Employees
+      summary: Delete Employee
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Employee deleted successfully
+        '404':
+          description: Employee not found
+
+  /api/v1/employees/import:
+    post:
+      tags:
+        - Employees
+      summary: Import Employees CSV
+      description: Bulk import employee records from a CSV file.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: CSV file containing employee headers (first_name, last_name, email, job_title, department, country, salary)
+      responses:
+        '202':
+          description: Bulk import background job enqueued successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Bulk import process started in background. A log file will be emailed upon completion."
+                  status:
+                    type: string
+                    example: "processing"
+                  job_id:
+                    type: string
+                    example: "a8f3b145-..."
+                  imported_count:
+                    type: integer
+                    example: 0
+                  error_count:
+                    type: integer
+                    example: 0
+        '200':
+          description: Synchronous CSV import complete
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Import complete"
+                  status:
+                    type: string
+                    example: "completed"
+        '400':
+          description: No CSV file provided
+
+  /api/v1/analytics:
+    get:
+      tags:
+        - Analytics
+      summary: Executive Salary Analytics
+      description: Retrieve high-level salary metrics, department allocations, and country pay parity stats.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Analytics summary and aggregate statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: object
+                    properties:
+                      total_payroll:
+                        type: number
+                        example: 1250000.00
+                      average_salary:
+                        type: number
+                        example: 95000.00
+                      total_employees:
+                        type: integer
+                        example: 10000
+                  by_country:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        country:
+                          type: string
+                        count:
+                          type: integer
+                        avg_salary:
+                          type: number
+                        total_payroll:
+                          type: number
+                  by_department:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        department:
+                          type: string
+                        count:
+                          type: integer
+                        avg_salary:
+                          type: number
+                        total_payroll:
+                          type: number
+        '401':
+          description: Unauthorized / Missing or invalid token
+
+  /api/v1/users:
+    get:
+      tags:
+        - User Management
+      summary: List Organization Users (Admin Only)
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Array of organization users
+        '403':
+          description: Forbidden (Admin privileges required)
+
+    post:
+      tags:
+        - User Management
+      summary: Create Organization User (Admin Only)
+      description: Allows Org Admin to create new hr_manager or employee users in their organization.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - password_confirmation
+                - role
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                role:
+                  type: string
+                  enum: [admin, hr_manager, employee]
+      responses:
+        '201':
+          description: User created successfully
+        '403':
+          description: Forbidden (Admin privileges required)
+        '422':
+          description: Validation errors
+
+  /api/v1/users/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: User record ID
+
+    get:
+      tags:
+        - User Management
+      summary: Get User Details (Admin Only)
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User details
+        '403':
+          description: Forbidden (Admin privileges required)
+        '404':
+          description: User not found
+
+    put:
+      tags:
+        - User Management
+      summary: Update User (Admin Only)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                role:
+                  type: string
+                  enum: [admin, hr_manager]
+      responses:
+        '200':
+          description: User updated successfully
+        '403':
+          description: Forbidden (Admin privileges required)
+        '422':
+          description: Validation errors
+
+    delete:
+      tags:
+        - User Management
+      summary: Delete User (Admin Only)
+      security:
+        - BearerAuth: []
+      responses:
+        '204':
+          description: User deleted successfully
+        '403':
+          description: Forbidden (Admin privileges required)
+        '422':
+          description: Cannot delete own account
+
+  /api/v1/organizations/validate:
+    get:
+      tags:
+        - Organization Management
+      summary: Validate Organization Name Availability
+      description: Check if an organization name or slug is available or already registered.
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          example: "Stark Industries"
+      responses:
+        '200':
+          description: Availability check result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "Stark Industries"
+                  slug:
+                    type: string
+                    example: "stark-industries"
+                  exists:
+                    type: boolean
+                    example: false
+                  available:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Organization name is available"
+        '400':
+          description: Missing required 'name' parameter
+
+
+
